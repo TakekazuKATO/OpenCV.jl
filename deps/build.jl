@@ -3,7 +3,7 @@ using CxxWrap
 
 
 @BinDeps.setup
-jlcxx_dir = joinpath(dirname(CxxWrap.jlcxx_path), "cmake", "JlCxx")
+jlcxx_cmake_dir   = joinpath(dirname(pathof(CxxWrap)), "..", "deps",   "usr", "lib", "cmake", "JlCxx")
 cvwrap = library_dependency("cvwrap", aliases=["libcvwrap"])
 
 prefix=joinpath(BinDeps.depsdir(cvwrap),"usr")
@@ -17,7 +17,7 @@ genopt = "Unix Makefiles"
 build_type = get(ENV, "CXXWRAP_BUILD_TYPE", "Release")
 
 cv_steps = @build_steps begin
-	`cmake $cvwrap_srcdir`
+	`cmake -DJlCxx_DIR=$jlcxx_cmake_dir -DJulia_EXECUTABLE=$(Sys.BINDIR)/julia $cvwrap_srcdir`
 	`cmake --build . --config $build_type --target install $makeopts`
 end
 
