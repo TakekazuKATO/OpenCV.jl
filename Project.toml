@@ -1,7 +1,7 @@
 name = "OpenCV"
 uuid = "3ad7be9e-c11c-11e8-3816-394ce09261e1"
 authors = ["Takekazu KATO <takekazu.kato@gmail.com>"]
-version = "0.1.0"
+version = "0.1.1"
 
 [deps]
 BinDeps = "9e28174c-4ba2-5203-b857-d8d62c4213ee"
