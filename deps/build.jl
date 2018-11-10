@@ -40,7 +40,7 @@ genopt = "Unix Makefiles"
 build_type = get(ENV, "CXXWRAP_BUILD_TYPE", "Release")
 
 cv_steps = @build_steps begin
-	`cmake -DJlCxx_DIR=$jlcxx_cmake_dir -DJulia_EXECUTABLE=$(Sys.BINDIR)/julia $cvwrap_srcdir`
+	`cmake -DCMAKE_INSTALL_PREFIX=${prefix} -DJlCxx_DIR=$jlcxx_cmake_dir -DJulia_EXECUTABLE=$(Sys.BINDIR)/julia $cvwrap_srcdir`
 	`cmake --build . --config $build_type --target install $makeopts`
 end
 

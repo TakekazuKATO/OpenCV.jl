@@ -86,8 +86,8 @@ template <>
 struct IsBits<cv::ImreadModes> : std::true_type {};
 template <>
 struct IsBits<cv::ImwriteFlags> : std::true_type {};
-template <>
-struct IsBits<cv::ImwriteEXRTypeFlags> : std::true_type {};
+// template <>
+// struct IsBits<cv::ImwriteEXRTypeFlags> : std::true_type {};
 template <>
 struct IsBits<cv::ImwritePNGFlags> : std::true_type {};
 template <>
@@ -126,8 +126,8 @@ template <>
 struct IsBits<cv::RetrievalModes> : std::true_type {};
 template <>
 struct IsBits<cv::ContourApproximationModes> : std::true_type {};
-template <>
-struct IsBits<cv::ShapeMatchModes> : std::true_type {};
+// template <>
+// struct IsBits<cv::ShapeMatchModes> : std::true_type {};
 template <>
 struct IsBits<cv::HoughModes> : std::true_type {};
 template <>

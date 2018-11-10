@@ -116,10 +116,10 @@ define_imgproc_module(Module &mod) {
                 cv::ContourApproximationModes::CHAIN_APPROX_TC89_L1);
   mod.set_const("CHAIN_APPROX_TC89_KCOS",
                 cv::ContourApproximationModes::CHAIN_APPROX_TC89_KCOS);
-  mod.add_bits<cv::ShapeMatchModes>("ShapeMatchModes");
+  /*mod.add_bits<cv::ShapeMatchModes>("ShapeMatchModes");
   mod.set_const("CONTOURS_MATCH_I1", cv::ShapeMatchModes::CONTOURS_MATCH_I1);
   mod.set_const("CONTOURS_MATCH_I2", cv::ShapeMatchModes::CONTOURS_MATCH_I2);
-  mod.set_const("CONTOURS_MATCH_I3", cv::ShapeMatchModes::CONTOURS_MATCH_I3);
+  mod.set_const("CONTOURS_MATCH_I3", cv::ShapeMatchModes::CONTOURS_MATCH_I3);*/
   mod.add_bits<cv::HoughModes>("HoughModes");
   mod.set_const("HOUGH_STANDARD", cv::HoughModes::HOUGH_STANDARD);
   mod.set_const("HOUGH_PROBABILISTIC", cv::HoughModes::HOUGH_PROBABILISTIC);

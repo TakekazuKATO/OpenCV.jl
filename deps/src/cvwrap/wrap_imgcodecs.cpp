@@ -51,11 +51,11 @@ define_imgcodecs_module(Module& mod) {
   // cv::ImwriteFlags::IMWRITE_TIFF_RESUNIT);
   // mod.set_const("IMWRITE_TIFF_XDPI", cv::ImwriteFlags::IMWRITE_TIFF_XDPI);
   // mod.set_const("IMWRITE_TIFF_YDPI", cv::ImwriteFlags::IMWRITE_TIFF_YDPI);
-  mod.add_bits<cv::ImwriteEXRTypeFlags>("ImwriteEXRTypeFlags");
+  /*mod.add_bits<cv::ImwriteEXRTypeFlags>("ImwriteEXRTypeFlags");
   mod.set_const("IMWRITE_EXR_TYPE_HALF",
                 cv::ImwriteEXRTypeFlags::IMWRITE_EXR_TYPE_HALF);
   mod.set_const("IMWRITE_EXR_TYPE_FLOAT",
-                cv::ImwriteEXRTypeFlags::IMWRITE_EXR_TYPE_FLOAT);
+                cv::ImwriteEXRTypeFlags::IMWRITE_EXR_TYPE_FLOAT);*/
   mod.add_bits<cv::ImwritePNGFlags>("ImwritePNGFlags");
   mod.set_const("IMWRITE_PNG_STRATEGY_DEFAULT",
                 cv::ImwritePNGFlags::IMWRITE_PNG_STRATEGY_DEFAULT);
