@@ -798,7 +798,7 @@ define_objdetect_module(Module &mod) {
         return instance.groupRectangles(const_off(rectList), const_off(weights),
                                         groupThreshold, eps);
       });
-  mod.method("detectQRCode",
+  /*mod.method("detectQRCode",
              [](const cv::Mat &in, const std::vector<cv::Point> &points) {
                return cv::detectQRCode(cv::InputArray(in), const_off(points));
              });
@@ -812,7 +812,7 @@ define_objdetect_module(Module &mod) {
                 double eps_x, double eps_y) {
                return cv::detectQRCode(cv::InputArray(in), const_off(points),
                                        eps_x, eps_y);
-             });
+             });*/
   mod.add_type<cv::DetectionBasedTracker>("DetectionBasedTracker")
       .constructor<cv::Ptr<cv::DetectionBasedTracker::IDetector>,
                    cv::Ptr<cv::DetectionBasedTracker::IDetector>,

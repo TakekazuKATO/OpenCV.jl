@@ -47,9 +47,10 @@ define_imgcodecs_module(Module& mod) {
   mod.set_const("IMWRITE_WEBP_QUALITY", cv::ImwriteFlags::IMWRITE_WEBP_QUALITY);
   mod.set_const("IMWRITE_PAM_TUPLETYPE",
                 cv::ImwriteFlags::IMWRITE_PAM_TUPLETYPE);
-  mod.set_const("IMWRITE_TIFF_RESUNIT", cv::ImwriteFlags::IMWRITE_TIFF_RESUNIT);
-  mod.set_const("IMWRITE_TIFF_XDPI", cv::ImwriteFlags::IMWRITE_TIFF_XDPI);
-  mod.set_const("IMWRITE_TIFF_YDPI", cv::ImwriteFlags::IMWRITE_TIFF_YDPI);
+  // mod.set_const("IMWRITE_TIFF_RESUNIT",
+  // cv::ImwriteFlags::IMWRITE_TIFF_RESUNIT);
+  // mod.set_const("IMWRITE_TIFF_XDPI", cv::ImwriteFlags::IMWRITE_TIFF_XDPI);
+  // mod.set_const("IMWRITE_TIFF_YDPI", cv::ImwriteFlags::IMWRITE_TIFF_YDPI);
   mod.add_bits<cv::ImwriteEXRTypeFlags>("ImwriteEXRTypeFlags");
   mod.set_const("IMWRITE_EXR_TYPE_HALF",
                 cv::ImwriteEXRTypeFlags::IMWRITE_EXR_TYPE_HALF);

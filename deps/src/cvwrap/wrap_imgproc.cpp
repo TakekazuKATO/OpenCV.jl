@@ -77,7 +77,8 @@ define_imgproc_module(Module &mod) {
   mod.set_const("GC_INIT_WITH_RECT", cv::GrabCutModes::GC_INIT_WITH_RECT);
   mod.set_const("GC_INIT_WITH_MASK", cv::GrabCutModes::GC_INIT_WITH_MASK);
   mod.set_const("GC_EVAL", cv::GrabCutModes::GC_EVAL);
-  mod.set_const("GC_EVAL_FREEZE_MODEL", cv::GrabCutModes::GC_EVAL_FREEZE_MODEL);
+  // mod.set_const("GC_EVAL_FREEZE_MODEL",
+  // cv::GrabCutModes::GC_EVAL_FREEZE_MODEL);
   mod.add_bits<cv::DistanceTransformLabelTypes>("DistanceTransformLabelTypes");
   mod.set_const("DIST_LABEL_CCOMP",
                 cv::DistanceTransformLabelTypes::DIST_LABEL_CCOMP);
@@ -1589,12 +1590,12 @@ define_imgproc_module(Module &mod) {
                return cv::linearPolar(cv::InputArray(src), cv::OutputArray(dst),
                                       center, maxRadius, flags);
              });
-  mod.method("warpPolar",
+  /*mod.method("warpPolar",
              [](const cv::Mat &src, const cv::Mat &dst, cv::Size dsize,
                 cv::Point2f center, double maxRadius, int flags) {
                return cv::warpPolar(cv::InputArray(src), cv::OutputArray(dst),
                                     dsize, center, maxRadius, flags);
-             });
+             });*/
   mod.method("integral", [](const cv::Mat &src, const cv::Mat &sum) {
     return cv::integral(cv::InputArray(src), cv::OutputArray(sum));
   });
