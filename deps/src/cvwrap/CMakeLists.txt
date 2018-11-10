@@ -16,6 +16,7 @@ endif()
 
 add_definitions(-DJULIA_ENABLE_THREADING)
 
+set(CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR})
 
 find_package(JlCxx REQUIRED)
 find_package(OpenCV REQUIRED)

@@ -55,8 +55,6 @@ struct IsBits<cv::DftFlags> : std::true_type {};
 template <>
 struct IsBits<cv::BorderTypes> : std::true_type {};
 template <>
-struct IsBits<cv::detail::TestOp> : std::true_type {};
-template <>
 struct IsBits<cv::UMatUsageFlags> : std::true_type {};
 template <>
 struct IsBits<cv::SortFlags> : std::true_type {};
@@ -100,8 +98,6 @@ template <>
 struct IsBits<cv::MorphShapes> : std::true_type {};
 template <>
 struct IsBits<cv::InterpolationFlags> : std::true_type {};
-template <>
-struct IsBits<cv::WarpPolarMode> : std::true_type {};
 template <>
 struct IsBits<cv::InterpolationMasks> : std::true_type {};
 template <>
@@ -171,9 +167,9 @@ struct IsBits<cv::ml::ErrorTypes> : std::true_type {};
 template <>
 struct IsBits<cv::ml::SampleTypes> : std::true_type {};
 template <>
-struct IsBits<cv::dnn::experimental_dnn_v5::Backend> : std::true_type {};
+struct IsBits<cv::dnn::experimental_dnn_34_v7::Backend> : std::true_type {};
 template <>
-struct IsBits<cv::dnn::experimental_dnn_v5::Target> : std::true_type {};
+struct IsBits<cv::dnn::experimental_dnn_34_v7::Target> : std::true_type {};
 
 template <typename T>
 struct IsSmartPointerType<cv::Ptr<T>> : std::true_type {};
