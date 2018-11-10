@@ -24,8 +24,8 @@ define_imgproc_module(Module &mod) {
   mod.set_const("INTER_CUBIC", cv::InterpolationFlags::INTER_CUBIC);
   mod.set_const("INTER_AREA", cv::InterpolationFlags::INTER_AREA);
   mod.set_const("INTER_LANCZOS4", cv::InterpolationFlags::INTER_LANCZOS4);
-  mod.set_const("INTER_LINEAR_EXACT",
-                cv::InterpolationFlags::INTER_LINEAR_EXACT);
+  // mod.set_const("INTER_LINEAR_EXACT",
+  //              cv::InterpolationFlags::INTER_LINEAR_EXACT);
   mod.set_const("INTER_MAX", cv::InterpolationFlags::INTER_MAX);
   mod.set_const("WARP_FILL_OUTLIERS",
                 cv::InterpolationFlags::WARP_FILL_OUTLIERS);
@@ -468,8 +468,8 @@ define_imgproc_module(Module &mod) {
                 cv::ColorConversionCodes::COLOR_BayerRG2RGB_EA);
   mod.set_const("COLOR_BayerGR2RGB_EA",
                 cv::ColorConversionCodes::COLOR_BayerGR2RGB_EA);
-  mod.set_const("COLOR_BayerBG2BGRA",
-                cv::ColorConversionCodes::COLOR_BayerBG2BGRA);
+  /* mod.set_const("COLOR_BayerBG2BGRA",
+   cv::ColorConversionCodes::COLOR_BayerBG2BGRA);
   mod.set_const("COLOR_BayerGB2BGRA",
                 cv::ColorConversionCodes::COLOR_BayerGB2BGRA);
   mod.set_const("COLOR_BayerRG2BGRA",
@@ -483,7 +483,7 @@ define_imgproc_module(Module &mod) {
   mod.set_const("COLOR_BayerRG2RGBA",
                 cv::ColorConversionCodes::COLOR_BayerRG2RGBA);
   mod.set_const("COLOR_BayerGR2RGBA",
-                cv::ColorConversionCodes::COLOR_BayerGR2RGBA);
+                cv::ColorConversionCodes::COLOR_BayerGR2RGBA);*/
   mod.set_const("COLOR_COLORCVT_MAX",
                 cv::ColorConversionCodes::COLOR_COLORCVT_MAX);
   mod.add_bits<cv::RectanglesIntersectTypes>("RectanglesIntersectTypes");

@@ -35,8 +35,8 @@ define_videoio_module(Module &mod) {
   mod.set_const("CAP_FFMPEG", cv::VideoCaptureAPIs::CAP_FFMPEG);
   mod.set_const("CAP_IMAGES", cv::VideoCaptureAPIs::CAP_IMAGES);
   mod.set_const("CAP_ARAVIS", cv::VideoCaptureAPIs::CAP_ARAVIS);
-  mod.set_const("CAP_OPENCV_MJPEG", cv::VideoCaptureAPIs::CAP_OPENCV_MJPEG);
-  mod.set_const("CAP_INTEL_MFX", cv::VideoCaptureAPIs::CAP_INTEL_MFX);
+  // mod.set_const("CAP_OPENCV_MJPEG", cv::VideoCaptureAPIs::CAP_OPENCV_MJPEG);
+  // mod.set_const("CAP_INTEL_MFX", cv::VideoCaptureAPIs::CAP_INTEL_MFX);
   // mod.set_const("CAP_XINE",cv::VideoCaptureAPIs::CAP_XINE);
   mod.add_bits<cv::VideoCaptureProperties>("VideoCaptureProperties");
   mod.set_const("CAP_PROP_POS_MSEC",
@@ -103,12 +103,12 @@ define_videoio_module(Module &mod) {
                 cv::VideoCaptureProperties::CAP_PROP_BUFFERSIZE);
   mod.set_const("CAP_PROP_AUTOFOCUS",
                 cv::VideoCaptureProperties::CAP_PROP_AUTOFOCUS);
-  mod.set_const("CAP_PROP_SAR_NUM",
-                cv::VideoCaptureProperties::CAP_PROP_SAR_NUM);
-  mod.set_const("CAP_PROP_SAR_DEN",
-                cv::VideoCaptureProperties::CAP_PROP_SAR_DEN);
-  mod.set_const("CV__CAP_PROP_LATEST",
-                cv::VideoCaptureProperties::CV__CAP_PROP_LATEST);
+  // mod.set_const("CAP_PROP_SAR_NUM",
+  //              cv::VideoCaptureProperties::CAP_PROP_SAR_NUM);
+  // mod.set_const("CAP_PROP_SAR_DEN",
+  //              cv::VideoCaptureProperties::CAP_PROP_SAR_DEN);
+  // mod.set_const("CV__CAP_PROP_LATEST",
+  //              cv::VideoCaptureProperties::CV__CAP_PROP_LATEST);
   mod.add_bits<cv::VideoCaptureModes>("VideoCaptureModes");
   mod.set_const("CAP_MODE_BGR", cv::VideoCaptureModes::CAP_MODE_BGR);
   mod.set_const("CAP_MODE_RGB", cv::VideoCaptureModes::CAP_MODE_RGB);
@@ -576,20 +576,20 @@ define_videoio_module(Module &mod) {
                  int fourcc, double fps, cv::Size frameSize, bool isColor) {
                 return instance.open(filename, fourcc, fps, frameSize, isColor);
               })
-      .method(
+      /*.method(
           "open",
           [](cv::VideoWriter &instance, const cv::String &filename,
              int apiPreference, int fourcc, double fps, cv::Size frameSize) {
             return instance.open(filename, apiPreference, fourcc, fps,
                                  frameSize);
-          })
-      .method("open",
+          })*/
+      /*.method("open",
               [](cv::VideoWriter &instance, const cv::String &filename,
                  int apiPreference, int fourcc, double fps, cv::Size frameSize,
                  bool isColor) {
                 return instance.open(filename, apiPreference, fourcc, fps,
                                      frameSize, isColor);
-              })
+              })*/
       .method(
           "isOpened",
           [](const cv::VideoWriter &instance) { return instance.isOpened(); })
