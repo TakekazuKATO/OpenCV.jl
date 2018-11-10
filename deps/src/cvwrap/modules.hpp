@@ -166,10 +166,10 @@ template <>
 struct IsBits<cv::ml::ErrorTypes> : std::true_type {};
 template <>
 struct IsBits<cv::ml::SampleTypes> : std::true_type {};
-template <>
-struct IsBits<cv::dnn::experimental_dnn_34_v7::Backend> : std::true_type {};
-template <>
-struct IsBits<cv::dnn::experimental_dnn_34_v7::Target> : std::true_type {};
+// template <>
+// struct IsBits<cv::dnn::experimental_dnn_34_v7::Backend> : std::true_type {};
+// template <>
+// struct IsBits<cv::dnn::experimental_dnn_34_v7::Target> : std::true_type {};
 
 template <typename T>
 struct IsSmartPointerType<cv::Ptr<T>> : std::true_type {};

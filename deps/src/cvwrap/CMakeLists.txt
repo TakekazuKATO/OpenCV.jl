@@ -36,8 +36,8 @@ add_library(cvwrap SHARED
     wrap_calib3d.cpp
     wrap_features2d.cpp
     wrap_objdetect.cpp
-    wrap_dnn_all_layers.cpp
-    wrap_dnn.cpp
+#    wrap_dnn_all_layers.cpp
+#    wrap_dnn.cpp
     wrap_ml.cpp
     wrap_photo.cpp
     wrap_stitching.cpp

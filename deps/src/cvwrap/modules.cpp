@@ -16,8 +16,8 @@ extern void define_calib3d_module(jlcxx::Module &);
 // extern void define_flann_module(jlcxx::Module &);
 extern void define_features2d_module(jlcxx::Module &);
 extern void define_objdetect_module(jlcxx::Module &);
-extern void define_dnn_all_layers_module(jlcxx::Module &);
-extern void define_dnn_module(jlcxx::Module &);
+// extern void define_dnn_all_layers_module(jlcxx::Module &);
+// extern void define_dnn_module(jlcxx::Module &);
 extern void define_ml_module(jlcxx::Module &);
 extern void define_photo_module(jlcxx::Module &);
 extern void define_stitching_module(jlcxx::Module &);
@@ -130,8 +130,8 @@ define_julia_module(jlcxx::Module &mod) {
   mod.add_type<cv::DetectionBasedTracker::ExtObject>(
       "DetectionBasedTrackerExtObject");
   define_objdetect_module(mod);
-  define_dnn_module(mod);
-  define_dnn_all_layers_module(mod);
+  // define_dnn_module(mod);
+  // define_dnn_all_layers_module(mod);
   define_ml_module(mod);
   define_photo_module(mod);
   define_stitching_module(mod);
@@ -143,29 +143,4 @@ define_julia_module(jlcxx::Module &mod) {
         typedef typename WrappedT::second_type ValueT2;
         wrapped.template constructor<const ValueT1 &, const ValueT2 &>();
       });
-  /*
-mod.add_type<jlcxx::Parametric<jlcxx::TypeVar<1>>>("Vector")
-  .apply<std::vector<int>, std::vector<std::vector<int>>, std::vector<char>,
-         std::vector<unsigned char>,
-         std::vector<std::vector<unsigned char>>, std::vector<float>,
-         std::vector<double>, std::vector<cv::Point_<int>>,
-         std::vector<cv::Point_<float>>, std::vector<cv::Point_<double>>,
-         std::vector<std::vector<cv::Point_<int>>>, std::vector<cv::Rect>,
-         std::vector<cv::Mat>, std::vector<cv::KeyPoint>,
-         std::vector<cv::DMatch>, std::vector<std::vector<cv::DMatch>>,
-         std::vector<cv::String>, std::vector<cv::DetectionROI>,
-         std::vector<std::pair<cv::Rect_<int>, int>>,
-         std::vector<cv::DetectionBasedTracker::ExtObject>>(
-      [&mod](auto wrapped) {
-        typedef typename decltype(wrapped)::type WrappedT;
-        typedef typename WrappedT::value_type ValueT;
-        wrapped.template constructor<size_t>();
-        wrapped.template constructor<size_t, ValueT>();
-        mod.method("Vector", [](jlcxx::ArrayRef<ValueT> arr) {
-          return std::vector<ValueT>((ValueT *)arr.data(),
-                                     (ValueT *)arr.data() + arr.size());
-        });
-        wrapped.method("getindex", [](const std::vector<ValueT> v,
-                                      int64_t i) { return v[i]; });
-      });*/
 }
