@@ -114,10 +114,10 @@ define_core_persistence_module(Module &mod) {
                         const cv::KeyPoint &default_value) {
     return cv::read(node, value, default_value);
   });*/
-  mod.method("read", [](const cv::FileNode &node, cv::DMatch &value,
+  /*mod.method("read", [](const cv::FileNode &node, cv::DMatch &value,
                         const cv::DMatch &default_value) {
     return cv::read(node, value, default_value);
-  });
+  });*/
   mod.method("operator<<", [](cv::FileStorage &fs, const cv::String &str) {
     return cv::operator<<(fs, str);
   });

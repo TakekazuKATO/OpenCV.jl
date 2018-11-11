@@ -13,8 +13,8 @@ define_calib3d_module(Module &mod) {
   mod.set_const("SOLVEPNP_P3P", (int)cv::SOLVEPNP_P3P);
   mod.set_const("SOLVEPNP_DLS", (int)cv::SOLVEPNP_DLS);
   mod.set_const("SOLVEPNP_UPNP", (int)cv::SOLVEPNP_UPNP);
-  mod.set_const("SOLVEPNP_AP3P", (int)cv::SOLVEPNP_AP3P);
-  mod.set_const("SOLVEPNP_MAX_COUNT", (int)cv::SOLVEPNP_MAX_COUNT);
+  // mod.set_const("SOLVEPNP_AP3P", (int)cv::SOLVEPNP_AP3P);
+  // mod.set_const("SOLVEPNP_MAX_COUNT", (int)cv::SOLVEPNP_MAX_COUNT);
   mod.set_const("CALIB_CB_ADAPTIVE_THRESH", (int)cv::CALIB_CB_ADAPTIVE_THRESH);
   mod.set_const("CALIB_CB_NORMALIZE_IMAGE", (int)cv::CALIB_CB_NORMALIZE_IMAGE);
   mod.set_const("CALIB_CB_FILTER_QUADS", (int)cv::CALIB_CB_FILTER_QUADS);
@@ -41,13 +41,13 @@ define_calib3d_module(Module &mod) {
   mod.set_const("CALIB_TILTED_MODEL", (int)cv::CALIB_TILTED_MODEL);
   mod.set_const("CALIB_FIX_TAUX_TAUY", (int)cv::CALIB_FIX_TAUX_TAUY);
   mod.set_const("CALIB_USE_QR", (int)cv::CALIB_USE_QR);
-  mod.set_const("CALIB_FIX_TANGENT_DIST", (int)cv::CALIB_FIX_TANGENT_DIST);
+  // mod.set_const("CALIB_FIX_TANGENT_DIST", (int)cv::CALIB_FIX_TANGENT_DIST);
   mod.set_const("CALIB_FIX_INTRINSIC", (int)cv::CALIB_FIX_INTRINSIC);
   mod.set_const("CALIB_SAME_FOCAL_LENGTH", (int)cv::CALIB_SAME_FOCAL_LENGTH);
   mod.set_const("CALIB_ZERO_DISPARITY", (int)cv::CALIB_ZERO_DISPARITY);
   mod.set_const("CALIB_USE_LU", (int)cv::CALIB_USE_LU);
-  mod.set_const("CALIB_USE_EXTRINSIC_GUESS",
-                (int)cv::CALIB_USE_EXTRINSIC_GUESS);
+  // mod.set_const("CALIB_USE_EXTRINSIC_GUESS",
+  //              (int)cv::CALIB_USE_EXTRINSIC_GUESS);
   mod.set_const("FM_7POINT", (int)cv::FM_7POINT);
   mod.set_const("FM_8POINT", (int)cv::FM_8POINT);
   mod.set_const("FM_LMEDS", (int)cv::FM_LMEDS);
@@ -244,7 +244,7 @@ define_calib3d_module(Module &mod) {
                    cv::InputOutputArray(image), patternSize,
                    cv::InputArray(corners), patternWasFound);
              });
-  mod.add_type<cv::CirclesGridFinderParameters>("CirclesGridFinderParameters")
+  /*mod.add_type<cv::CirclesGridFinderParameters>("CirclesGridFinderParameters")
       .method("densityNeighborhoodSize",
               [](const cv::CirclesGridFinderParameters &instance) {
                 return instance.densityNeighborhoodSize;
@@ -296,10 +296,10 @@ define_calib3d_module(Module &mod) {
       .method("minRNGEdgeSwitchDist",
               [](const cv::CirclesGridFinderParameters &instance) {
                 return instance.minRNGEdgeSwitchDist;
-              });
+              });*/
   //.method("gridType",[](const cv::CirclesGridFinderParameters
   //&instance){return instance.gridType;});
-  mod.add_type<cv::CirclesGridFinderParameters2>("CirclesGridFinderParameters2")
+  /*mod.add_type<cv::CirclesGridFinderParameters2>("CirclesGridFinderParameters2")
       .method("squareSize",
               [](const cv::CirclesGridFinderParameters2 &instance) {
                 return instance.squareSize;
@@ -307,7 +307,7 @@ define_calib3d_module(Module &mod) {
       .method("maxRectifiedDistance",
               [](const cv::CirclesGridFinderParameters2 &instance) {
                 return instance.maxRectifiedDistance;
-              });
+              });*/
   mod.method(
       "findCirclesGrid",
       [](const cv::Mat &image, cv::Size patternSize, const cv::Mat &centers,
