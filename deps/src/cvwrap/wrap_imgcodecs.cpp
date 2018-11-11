@@ -43,7 +43,7 @@ define_imgcodecs_module(Module& mod) {
   mod.set_const("IMWRITE_PNG_STRATEGY", cv::ImwriteFlags::IMWRITE_PNG_STRATEGY);
   mod.set_const("IMWRITE_PNG_BILEVEL", cv::ImwriteFlags::IMWRITE_PNG_BILEVEL);
   mod.set_const("IMWRITE_PXM_BINARY", cv::ImwriteFlags::IMWRITE_PXM_BINARY);
-  mod.set_const("IMWRITE_EXR_TYPE", cv::ImwriteFlags::IMWRITE_EXR_TYPE);
+  // mod.set_const("IMWRITE_EXR_TYPE", cv::ImwriteFlags::IMWRITE_EXR_TYPE);
   mod.set_const("IMWRITE_WEBP_QUALITY", cv::ImwriteFlags::IMWRITE_WEBP_QUALITY);
   mod.set_const("IMWRITE_PAM_TUPLETYPE",
                 cv::ImwriteFlags::IMWRITE_PAM_TUPLETYPE);

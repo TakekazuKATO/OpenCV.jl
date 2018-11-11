@@ -1256,7 +1256,7 @@ define_imgproc_module(Module &mod) {
                    qualityLevel, minDistance, cv::InputArray(mask), blockSize,
                    gradientSize, useHarrisDetector);
              });
-  mod.method(
+  /*mod.method(
       "goodFeaturesToTrack",
       [](const cv::Mat &image, const cv::Mat &corners, int maxCorners,
          double qualityLevel, double minDistance, const cv::Mat &mask,
@@ -1265,7 +1265,7 @@ define_imgproc_module(Module &mod) {
             cv::InputArray(image), cv::OutputArray(corners), maxCorners,
             qualityLevel, minDistance, cv::InputArray(mask), blockSize,
             gradientSize, useHarrisDetector, k);
-      });
+      });*/
   mod.method("HoughLines", [](const cv::Mat &image, const cv::Mat &lines,
                               double rho, double theta, int threshold) {
     return cv::HoughLines(cv::InputArray(image), cv::OutputArray(lines), rho,
@@ -1313,7 +1313,7 @@ define_imgproc_module(Module &mod) {
     return cv::HoughLinesP(cv::InputArray(image), cv::OutputArray(lines), rho,
                            theta, threshold, minLineLength, maxLineGap);
   });
-  mod.method("HoughLinesPointSet",
+  /*mod.method("HoughLinesPointSet",
              [](const cv::Mat &_point, const cv::Mat &_lines, int lines_max,
                 int threshold, double min_rho, double max_rho, double rho_step,
                 double min_theta, double max_theta, double theta_step) {
@@ -1321,7 +1321,7 @@ define_imgproc_module(Module &mod) {
                    cv::InputArray(_point), cv::OutputArray(_lines), lines_max,
                    threshold, min_rho, max_rho, rho_step, min_theta, max_theta,
                    theta_step);
-             });
+             });*/
   mod.method("HoughCircles", [](const cv::Mat &image, const cv::Mat &circles,
                                 int method, double dp, double minDist) {
     return cv::HoughCircles(cv::InputArray(image), cv::OutputArray(circles),
@@ -1787,7 +1787,7 @@ define_imgproc_module(Module &mod) {
         cv::InputArray(src), cv::OutputArray(dst), cv::InputArray(cameraMatrix),
         cv::InputArray(distCoeffs), cv::InputArray(R), cv::InputArray(P));
   });
-  mod.method("undistortPoints",
+  /*mod.method("undistortPoints",
              [](const cv::Mat &src, const cv::Mat &dst,
                 const cv::Mat &cameraMatrix, const cv::Mat &distCoeffs,
                 const cv::Mat &R, const cv::Mat &P, cv::TermCriteria criteria) {
@@ -1795,7 +1795,7 @@ define_imgproc_module(Module &mod) {
                    cv::InputArray(src), cv::OutputArray(dst),
                    cv::InputArray(cameraMatrix), cv::InputArray(distCoeffs),
                    cv::InputArray(R), cv::InputArray(P), criteria);
-             });
+             });*/
   mod.method(
       "calcHist",
       [](const std::vector<cv::Mat> &images, const std::vector<int> &channels,
@@ -1841,7 +1841,7 @@ define_imgproc_module(Module &mod) {
                    distType, cv::InputArray(cost), lowerBound,
                    cv::OutputArray(flow));
   });
-  mod.method("wrapperEMD",
+  /*mod.method("wrapperEMD",
              [](const cv::Mat &signature1, const cv::Mat &signature2,
                 int distType, const cv::Mat &cost) {
                return cv::wrapperEMD(cv::InputArray(signature1),
@@ -1862,7 +1862,7 @@ define_imgproc_module(Module &mod) {
         return cv::wrapperEMD(
             cv::InputArray(signature1), cv::InputArray(signature2), distType,
             cv::InputArray(cost), lowerBound, cv::OutputArray(flow));
-      });
+      });*/
   mod.method("watershed", [](const cv::Mat &image, const cv::Mat &markers) {
     return cv::watershed(cv::InputArray(image), cv::InputOutputArray(markers));
   });
@@ -1988,11 +1988,11 @@ define_imgproc_module(Module &mod) {
                             int dstCn) {
     return cv::cvtColor(cv::InputArray(src), cv::OutputArray(dst), code, dstCn);
   });
-  mod.method("cvtColorTwoPlane", [](const cv::Mat &src1, const cv::Mat &src2,
+  /*mod.method("cvtColorTwoPlane", [](const cv::Mat &src1, const cv::Mat &src2,
                                     const cv::Mat &dst, int code) {
     return cv::cvtColorTwoPlane(cv::InputArray(src1), cv::InputArray(src2),
                                 cv::OutputArray(dst), code);
-  });
+  });*/
   mod.method("demosaicing", [](const cv::Mat &_src, const cv::Mat &_dst,
                                int code) {
     return cv::demosaicing(cv::InputArray(_src), cv::OutputArray(_dst), code);
@@ -2189,12 +2189,12 @@ define_imgproc_module(Module &mod) {
   mod.method("fitEllipse", [](const cv::Mat &points) {
     return cv::fitEllipse(cv::InputArray(points));
   });
-  mod.method("fitEllipseAMS", [](const cv::Mat &points) {
+  /*mod.method("fitEllipseAMS", [](const cv::Mat &points) {
     return cv::fitEllipseAMS(cv::InputArray(points));
   });
   mod.method("fitEllipseDirect", [](const cv::Mat &points) {
     return cv::fitEllipseDirect(cv::InputArray(points));
-  });
+  });*/
   mod.method("fitLine",
              [](const cv::Mat &points, const cv::Mat &line, int distType,
                 double param, double reps, double aeps) {
@@ -2247,11 +2247,11 @@ define_imgproc_module(Module &mod) {
                return cv::applyColorMap(cv::InputArray(src),
                                         cv::OutputArray(dst), colormap);
              });
-  mod.method("applyColorMap", [](const cv::Mat &src, const cv::Mat &dst,
+  /*mod.method("applyColorMap", [](const cv::Mat &src, const cv::Mat &dst,
                                  const cv::Mat &userColor) {
     return cv::applyColorMap(cv::InputArray(src), cv::OutputArray(dst),
                              cv::InputArray(userColor));
-  });
+  });*/
   mod.method("line", [](const cv::Mat &img, cv::Point pt1, cv::Point pt2,
                         const cv::Scalar &color) {
     return cv::line(cv::InputOutputArray(img), pt1, pt2, color);
@@ -2551,7 +2551,7 @@ define_imgproc_module(Module &mod) {
                                double fontScale, int thickness, int *baseLine) {
     return cv::getTextSize(text, fontFace, fontScale, thickness, baseLine);
   });
-  mod.method("getFontScaleFromHeight",
+  /*mod.method("getFontScaleFromHeight",
              [](const int fontFace, const int pixelHeight) {
                return cv::getFontScaleFromHeight(fontFace, pixelHeight);
              });
@@ -2559,7 +2559,7 @@ define_imgproc_module(Module &mod) {
       "getFontScaleFromHeight",
       [](const int fontFace, const int pixelHeight, const int thickness) {
         return cv::getFontScaleFromHeight(fontFace, pixelHeight, thickness);
-      });
+      });*/
   mod.add_type<cv::LineIterator>("LineIterator")
       .constructor<const cv::Mat &, cv::Point, cv::Point, int, bool>()
       .method("operator*",

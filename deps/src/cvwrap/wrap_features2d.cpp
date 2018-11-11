@@ -37,11 +37,11 @@ define_features2d_module(Module &mod) {
                  const std::vector<cv::KeyPoint> &keypoints) {
                 return instance.removeDuplicated(const_off(keypoints));
               })
-      .method("removeDuplicatedSorted",
+      /*.method("removeDuplicatedSorted",
               [](cv::KeyPointsFilter &instance,
                  const std::vector<cv::KeyPoint> &keypoints) {
                 return instance.removeDuplicatedSorted(const_off(keypoints));
-              })
+              })*/
       .method("retainBest",
               [](cv::KeyPointsFilter &instance,
                  const std::vector<cv::KeyPoint> &keypoints, int npoints) {
@@ -131,13 +131,14 @@ define_features2d_module(Module &mod) {
               [](const cv::Feature2D &instance) {
                 return instance.getDefaultName();
               })
-      .method("write",
+      /*.method("write",
               [](cv::Feature2D &instance, const cv::Ptr<cv::FileStorage> &fs) {
                 return instance.write(fs);
               })
       .method("write",
               [](cv::Feature2D &instance, const cv::Ptr<cv::FileStorage> &fs,
-                 const cv::String &name) { return instance.write(fs, name); });
+                 const cv::String &name) { return instance.write(fs, name); })*/
+      ;
   mod.add_type<cv::BRISK>("BRISK")
       .method("create", [](cv::BRISK &instance) { return instance.create(); })
       .method("create", [](cv::BRISK &instance,
@@ -173,7 +174,7 @@ define_features2d_module(Module &mod) {
                 return instance.create(radiusList, numberList, dMax, dMin,
                                        indexChange);
               })
-      .method("create",
+      /*.method("create",
               [](cv::BRISK &instance, int thresh, int octaves,
                  const std::vector<float> &radiusList,
                  const std::vector<int> &numberList) {
@@ -200,7 +201,7 @@ define_features2d_module(Module &mod) {
                  const std::vector<int> &indexChange) {
                 return instance.create(thresh, octaves, radiusList, numberList,
                                        dMax, dMin, indexChange);
-              })
+              })*/
       .method("getDefaultName", [](const cv::BRISK &instance) {
         return instance.getDefaultName();
       });
@@ -576,14 +577,14 @@ define_features2d_module(Module &mod) {
                                        blockSize, gradiantSize,
                                        useHarrisDetector);
               })
-      .method("create",
+      /*.method("create",
               [](cv::GFTTDetector &instance, int maxCorners,
                  double qualityLevel, double minDistance, int blockSize,
                  int gradiantSize, bool useHarrisDetector, double k) {
                 return instance.create(maxCorners, qualityLevel, minDistance,
                                        blockSize, gradiantSize,
                                        useHarrisDetector, k);
-              })
+              })*/
       .method("setMaxFeatures",
               [](cv::GFTTDetector &instance, int maxFeatures) {
                 return instance.setMaxFeatures(maxFeatures);
@@ -1009,14 +1010,16 @@ define_features2d_module(Module &mod) {
               [](cv::DescriptorMatcher &instance, int matcherType) {
                 return instance.create(matcherType);
               })
-      .method(
+      /*.method(
           "write",
           [](cv::DescriptorMatcher &instance,
-             const cv::Ptr<cv::FileStorage> &fs) { return instance.write(fs); })
+             const cv::Ptr<cv::FileStorage> &fs) { return instance.write(fs);
+         })
       .method("write",
               [](cv::DescriptorMatcher &instance,
                  const cv::Ptr<cv::FileStorage> &fs,
-                 const cv::String &name) { return instance.write(fs, name); });
+                 const cv::String &name) { return instance.write(fs, name); })*/
+      ;
   mod.add_type<cv::BFMatcher>("BFMatcher")
       .constructor<int, bool>()
       .method("isMaskSupported",

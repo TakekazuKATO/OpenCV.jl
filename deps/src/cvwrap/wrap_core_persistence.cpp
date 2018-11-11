@@ -110,10 +110,10 @@ define_core_persistence_module(Module &mod) {
                         const std::vector<cv::DMatch> &matches) {
     return cv::read(node, const_off(matches));
   });
-  mod.method("read", [](const cv::FileNode &node, cv::KeyPoint &value,
+  /*mod.method("read", [](const cv::FileNode &node, cv::KeyPoint &value,
                         const cv::KeyPoint &default_value) {
     return cv::read(node, value, default_value);
-  });
+  });*/
   mod.method("read", [](const cv::FileNode &node, cv::DMatch &value,
                         const cv::DMatch &default_value) {
     return cv::read(node, value, default_value);
