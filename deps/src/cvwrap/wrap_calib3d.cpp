@@ -308,7 +308,7 @@ define_calib3d_module(Module &mod) {
               [](const cv::CirclesGridFinderParameters2 &instance) {
                 return instance.maxRectifiedDistance;
               });*/
-  mod.method(
+  /*mod.method(
       "findCirclesGrid",
       [](const cv::Mat &image, cv::Size patternSize, const cv::Mat &centers,
          int flags, const cv::Ptr<cv::FeatureDetector> &blobDetector,
@@ -325,7 +325,7 @@ define_calib3d_module(Module &mod) {
         return cv::findCirclesGrid2(cv::InputArray(image), patternSize,
                                     cv::OutputArray(centers), flags,
                                     blobDetector, parameters);
-      });
+      });*/
   mod.method("findCirclesGrid", [](const cv::Mat &image, cv::Size patternSize,
                                    const cv::Mat &centers) {
     return cv::findCirclesGrid(cv::InputArray(image), patternSize,
@@ -647,7 +647,7 @@ define_calib3d_module(Module &mod) {
                            cv::OutputArray(t), focal, pp,
                            cv::InputOutputArray(mask));
   });
-  mod.method("recoverPose",
+  /*mod.method("recoverPose",
              [](const cv::Mat &E, const cv::Mat &points1,
                 const cv::Mat &points2, const cv::Mat &cameraMatrix,
                 const cv::Mat &R, const cv::Mat &t, double distanceThresh,
@@ -658,7 +658,7 @@ define_calib3d_module(Module &mod) {
                    cv::OutputArray(R), cv::OutputArray(t), distanceThresh,
                    cv::InputOutputArray(mask),
                    cv::OutputArray(triangulatedPoints));
-             });
+             });*/
   mod.method(
       "computeCorrespondEpilines", [](const cv::Mat &points, int whichImage,
                                       const cv::Mat &F, const cv::Mat &lines) {
