@@ -4,28 +4,6 @@ using CxxWrap
 
 @BinDeps.setup
 
-
-opencv = library_dependency("opencv",aliases=["libopencv_core"])
-
-provides(AptGet,"opencv", opencv, os=:Linux)
-provides(Pacman,"opencv", opencv, os=:Linux)
-provides(Yum, "opencv", opencv, os=:Linux)
-provides(BSDPkg, "opencv", opencv, os=:FreeBSD)
-
-if Sys.iswindows()
-  using WinRPM
-  provides(WinRPM.RPM, "opencv", opencv, os=:Windows)
-end
-# #if Sys.isapple()
-# #  using Homebrew
-# #  provides(Homebrew.HB, "opencv", opencv, os=:Darwin)
-# #end
-# using CMakeWrapper
-# provides(Sources, URI("https://github.com/opencv/opencv/archive/3.4.3.zip"),opencv)
-# provides(BuildProcess, CMakeProcess(), opencv)
-
-@BinDeps.install
-
 jlcxx_cmake_dir   = joinpath(dirname(pathof(CxxWrap)), "..", "deps",   "usr", "lib", "cmake", "JlCxx")
 cvwrap = library_dependency("cvwrap", aliases=["libcvwrap"])
 

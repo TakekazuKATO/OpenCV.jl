@@ -1,11 +1,11 @@
 using Clang
-const CLCXXAccessSpecifier=cindex.CXXAccessSpecifiers
-function parseEnum(cur::cindex.CLCursor,ns::Array)
+const CLCXXAccessSpecifier = cindex.CXXAccessSpecifiers
+function parseEnum(cur::cindex.CLCursor, ns::Array)
     filename = cindex.cu_file(cur)
     classname = cindex.spelling(cur)
-    fullname = join([ns;classname],"::")
+    fullname = join([ns;classname], "::")
     if classname == ""
-        prefix = "(int)$(join(ns,"::"))::"
+        prefix = "(int)$(join(ns, "::"))::"
     else
         prefix = "$(fullname)::"
         println("  mod.add_bits<$(fullname)>(\"$(classname)\");")
@@ -13,32 +13,32 @@ function parseEnum(cur::cindex.CLCursor,ns::Array)
     for c in cindex.children(cur)
         if cindex.typeof(c) == cindex.EnumConstantDecl
             cname = cindex.name(c)
-            cfullname = prefix*cname
+            cfullname = prefix * cname
             println("  mod.set_const(\"$(cname)\",$(cfullname));")
         end
     end
 end
-classes=[]
-function parseClass(cur::cindex.CLCursor,ns::Array)
+classes = []
+function parseClass(cur::cindex.CLCursor, ns::Array)
     #attrs = cindex.search(cur, c->typeof(c) == cindex.AnnotateAttr && cindex.spelling(c) == "CV_EXPORTS")
     #if isempty(attrs)
     #    return
     #end
     filename = cindex.cu_file(cur)
     classname = cindex.spelling(cur)
-    fullname = "$(join(ns,"::"))::$(classname)"
-    if findfirst(a->a==fullname,classes) != nothing
+    fullname = "$(join(ns, "::"))::$(classname)"
+    if findfirst(a->a == fullname, classes) != nothing
         return
     end
-    push!(classes,fullname)
-    children = cindex.search(cur,c->typeof(c) != cindex.AnnotateAttr)
+    push!(classes, fullname)
+    children = cindex.search(cur, c->typeof(c) != cindex.AnnotateAttr)
     if isempty(children)
         return
     end
     tflag = false
-    accflag=false
+    accflag = false
     if cindex.typeof(cur) == cindex.StructDecl
-        accflag=true
+        accflag = true
     end
 
     if cindex.typeof(cur) == cindex.ClassTemplate
@@ -49,35 +49,35 @@ function parseClass(cur::cindex.CLCursor,ns::Array)
                           wrapped""")
         tflag = true
     else
-        print("  mod.add_type<$(join(ns,"::"))::$(classname)>(\"$(classname)\")")
+        print("  mod.add_type<$(join(ns, "::"))::$(classname)>(\"$(classname)\")")
     end
     temptype = ""
     for c in children
         if cindex.typeof(c) == cindex.CXXAccessSpecifier
-            tokens=(cindex.tokenize(c))
+            tokens = (cindex.tokenize(c))
             spec = tokens[1]
             if spec.text == "public" 
-                accflag=true
+                accflag = true
             else
-               accflag = false
+                accflag = false
             end
         end
         if !accflag 
             continue
         end
-        myclass ="$(join(ns,"::"))::$(classname)"
+        myclass = "$(join(ns, "::"))::$(classname)"
         omyclass = myclass
         if tflag
             myclass = "WrappedT"
         end
         if cindex.typeof(c) == cindex.Constructor
-            m = match(r"\(.*\)",cindex.name(c))
-            ps = m.match[2:end-1]
+            m = match(r"\(.*\)", cindex.name(c))
+            ps = m.match[2:end - 1]
             if temptype != ""
-                ps = replace(ps,"$(temptype)"=>"ValueT")
-                ps = replace(ps,omyclass=>"typename WrappedT")
+                ps = replace(ps, "$(temptype)" => "ValueT")
+                ps = replace(ps, omyclass => "typename WrappedT")
             end
-            if !isempty(ps) && !contains(ps,"Mat *") && !contains(ps,"&&")
+            if !isempty(ps) && !occursin("Mat *", ps) && !occursin("&&", ps)
                 print("\n    .")
                 if tflag
                     print("template ")
@@ -85,13 +85,13 @@ function parseClass(cur::cindex.CLCursor,ns::Array)
                 print("constructor<$(ps)>()")
             end
         elseif cindex.typeof(c) == cindex.CXXMethod
-            tokens=collect(cindex.tokenize(c))
-            cflag=false
-            m = findlast(t->cindex.typeof(t)==cindex.Punctuation && t.text == ")",tokens)
-            if m!=nothing && m<length(tokens) && tokens[m+1].text == "const"
+            tokens = collect(cindex.tokenize(c))
+            cflag = false
+            m = findlast(t->cindex.typeof(t) == cindex.Punctuation && t.text == ")", tokens)
+            if m != nothing && m < length(tokens) && tokens[m + 1].text == "const"
                 cflag = true
             end
-            parseFunction(c,ns,myclass,temptype,cflag)
+            parseFunction(c, ns, myclass, temptype, cflag)
         elseif cindex.typeof(c) == cindex.FieldDecl
             fname = cindex.name(c)
             print("\n    .method(\"$(fname)\",[](const $(myclass) &instance){return instance.$(fname);})")
@@ -104,8 +104,8 @@ function parseClass(cur::cindex.CLCursor,ns::Array)
         println("});")
     end
 end
-global arg_count=0
-function parseArg(tokens,pnameflag=true)
+global arg_count = 0
+function parseArg(tokens, pnameflag = true)
     if isempty(tokens)
         return ()
     end
@@ -123,11 +123,11 @@ function parseArg(tokens,pnameflag=true)
         tok = tokens[idx]
         if state == :init # modifier or fundamental
             if cindex.typeof(tok) == cindex.Keyword && (tok.text == "const" || tok.text == "virtual")
-                modifier = modifier*tok.text
+                modifier = modifier * tok.text
                 continue
-            elseif cindex.typeof(tok) == cindex.Keyword || tok.text == "uchar" || tok.text == "size_t" || tok.text == "ptrdiff_t" || (length(tok.text)>1 && tok.text[1:2]=="Cv")
+            elseif cindex.typeof(tok) == cindex.Keyword || tok.text == "uchar" || tok.text == "size_t" || tok.text == "ptrdiff_t" || (length(tok.text) > 1 && tok.text[1:2] == "Cv")
                 fundamental = true
-                push!(typename,tok.text)
+                push!(typename, tok.text)
                 state = :reference
                 continue
             else 
@@ -136,11 +136,11 @@ function parseArg(tokens,pnameflag=true)
         end
         if state == :typename # typename
             if isempty(typename) && cindex.typeof(tok) == cindex.Punctuation && tok.text == "::"
-                push!(typename,"")
+                push!(typename, "")
                 continue
             end
             if cindex.typeof(tok) == cindex.Identifier
-                push!(typename,tok.text)
+                push!(typename, tok.text)
                 state = :namespace
                 continue
             else
@@ -157,16 +157,16 @@ function parseArg(tokens,pnameflag=true)
         end
         if state == :reference # reference
             if cindex.typeof(tok) == cindex.Punctuation && tok.text != "<"
-                reference = reference*tok.text
+                reference = reference * tok.text
                 #state = :paramname
                 continue
             elseif cindex.typeof(tok) == cindex.Punctuation && tok.text == "<"
-                etemp=findlast(t->t.text == ">",tokens[idx:end])
+                etemp = findlast(t->t.text == ">", tokens[idx:end])
                 if etemp == nothing
                     idx = length(tokens)
                 else
-                    tempparam=parseArg(tokens[idx+1:idx+etemp-2],false)
-                    idx = idx + etemp -1
+                    tempparam = parseArg(tokens[idx + 1:idx + etemp - 2], false)
+                    idx = idx + etemp - 1
                 end
                 continue
             else
@@ -197,24 +197,24 @@ function parseArg(tokens,pnameflag=true)
             end
         end
     end
-    if pnameflag && paramname==""
+    if pnameflag && paramname == ""
         paramname = "_argument$(arg_count)"
         global arg_count += 1
     end
-    param2=paramname
-    (fundamental,modifier,typename,tempparam,reference,paramname,has_default,param2)
+    param2 = paramname
+    (fundamental, modifier, typename, tempparam, reference, paramname, has_default, param2)
 end
-function makeArgString(arg,argcomp=true)
-    tn = join(arg[3],"::")
+function makeArgString(arg, argcomp = true)
+    tn = join(arg[3], "::")
     if arg[2] != ""
-        tn = arg[2]*" "*tn
+        tn = arg[2] * " " * tn
     end
     if arg[4] != ()
-        tn = tn * "<" * makeArgString(arg[4],false) * ">"
+        tn = tn * "<" * makeArgString(arg[4], false) * ">"
     end
-    tn*" "*arg[5]*arg[6]
+    tn * " " * arg[5] * arg[6]
 end
-function parseFunction(cur::cindex.CLCursor,ns::Array,instance::String="",temptype="",constflag=false)
+function parseFunction(cur::cindex.CLCursor, ns::Array, instance::String = "", temptype = "", constflag = false)
     attrs = cindex.search(cur, c->typeof(c) == cindex.AnnotateAttr && cindex.spelling(c) == "CV_EXPORTS")
     if isempty(instance) && isempty(attrs)
         return
@@ -226,54 +226,54 @@ function parseFunction(cur::cindex.CLCursor,ns::Array,instance::String="",tempty
         tokens = cindex.tokenize(arg)
         parg = parseArg(collect(tokens))
         c = cindex.children(arg)
-        (fundamental,modifier,typename,tempparam,reference,paramname,has_default,param2)=parg
-        if length(c)>0 && cindex.typeof(c[1]) == cindex.TypeRef
-            typename=cindex.spelling(c[1])
-            typename = replace(typename,"class "=>"")
-            typename = replace(typename,"struct "=>"")
-            typename=split(typename,"::")
+        (fundamental, modifier, typename, tempparam, reference, paramname, has_default, param2) = parg
+        if length(c) > 0 && cindex.typeof(c[1]) == cindex.TypeRef
+            typename = cindex.spelling(c[1])
+            typename = replace(typename, "class " => "")
+            typename = replace(typename, "struct " => "")
+            typename = split(typename, "::")
         end
         if ~fundamental
             if typename[1] != "" && typename[1] != "std" && typename[1] != "cv"
-                    pushfirst!(typename,"cv")
+                pushfirst!(typename, "cv")
             end
-            tn = join(typename,"::")
+            tn = join(typename, "::")
             if typename[end] == "InputArray" || typename[end] == "OutputArray" || typename[end] == "InputOutputArray"
-                modifier="const"
+                modifier = "const"
                 typename[end] = "Mat"
                 reference = "&"
-                param2="$(tn)($(paramname))"
+                param2 = "$(tn)($(paramname))"
             elseif typename[end] == "InputArrayOfArrays" || typename[end] == "OutputArrayOfArrays" || typename[end] == "InputOutputArrayOfArrays"
-                modifier="const"
+                modifier = "const"
                 typename = ["std","vector"]
-                tempparam = (false,"",["cv","Mat"],(),"","",false,"")
+                tempparam = (false, "", ["cv","Mat"], (), "", "", false, "")
                 reference = "&"
-                param2="$(tn)($(paramname))"
+                param2 = "$(tn)($(paramname))"
             elseif modifier == "" && reference == "&" && tn == "std::vector"
-                modifier="const"
-                param2="const_off($(paramname))"
+                modifier = "const"
+                param2 = "const_off($(paramname))"
             end
         end
-        (fundamental,modifier,typename,tempparam,reference,paramname,has_default,param2)
+        (fundamental, modifier, typename, tempparam, reference, paramname, has_default, param2)
     end
-    targs = filter(a->!isempty(a),targs)
-    vargs = map(makeArgString,targs)
+    targs = filter(a->!isempty(a), targs)
+    vargs = map(makeArgString, targs)
     if temptype != ""
-        vargs = map(a->replace(a,"cv::$(temptype)"=>"ValueT"),vargs)
+        vargs = map(a->replace(a, "cv::$(temptype)" => "ValueT"), vargs)
     end
-    params = map(a->a[8],targs)
-    dindex=findfirst(map(a->a[7],targs))
-    if dindex==nothing
-        dindex=length(targs)
+    params = map(a->a[8], targs)
+    dindex = findfirst(map(a->a[7], targs))
+    if dindex == nothing
+        dindex = length(targs)
     else
-        dindex=dindex-1
+        dindex = dindex - 1
     end
     for i in dindex:length(targs)
         
-        if isempty(vargs[1:i]) || findfirst(a->ismatch(r"^ *(Mat &|Mat \*|cv::Mat &|cv::Mat \*|const Mat \*|const cv::Mat \*|const  *std::vector<cv::Mat> &|std::vector<cv::Mat> &)",a),vargs[1:i])==nothing 
+        if isempty(vargs[1:i]) || findfirst(a->occursin(r"^ *(Mat &|Mat \*|cv::Mat &|cv::Mat \*|const Mat \*|const cv::Mat \*|const  *std::vector<cv::Mat> &|std::vector<cv::Mat> &)", a), vargs[1:i]) == nothing 
             if isempty(instance)
-                println("  mod.method(\"$(funcname)\", []($(join(vargs[1:i],','))) {")
-                println("    return $(join(ns,"::"))::$(funcname)( $(join(params[1:i],',') ) );")
+                println("  mod.method(\"$(funcname)\", []($(join(vargs[1:i], ','))) {")
+                println("    return $(join(ns, "::"))::$(funcname)( $(join(params[1:i], ',') ) );")
                 println("  });")
             else
                 print("\n")
@@ -285,34 +285,34 @@ function parseFunction(cur::cindex.CLCursor,ns::Array,instance::String="",tempty
                 end
                 print("[](")
                 if constflag
-                    st_instance="const $(instance) &instance"
+                    st_instance = "const $(instance) &instance"
                 else
-                    st_instance="$(instance) &instance"
+                    st_instance = "$(instance) &instance"
                 end
                 
-                args2=vargs[1:i]
-                if typeof(args2)==Array{Union{},1}
-                    args2=[st_instance]
+                args2 = vargs[1:i]
+                if typeof(args2) == Array{Union{},1}
+                    args2 = [st_instance]
                 else
-                    pushfirst!(args2,st_instance)
+                    pushfirst!(args2, st_instance)
                 end
-                print("$(join(args2,','))) {")
-                print("    return instance.$(funcname)( $(join(params[1:i],',') ) ); })")
+                print("$(join(args2, ','))) {")
+                print("    return instance.$(funcname)( $(join(params[1:i], ',') ) ); })")
             end
         end
     end
 end
-function rsearch(cur::cindex.CLCursor,ns::Array=[],target_file="",excludes=[])
+function rsearch(cur::cindex.CLCursor, ns::Array = [], target_file = "", excludes = [])
     for c in cindex.children(cur)
         if typeof(c) == cindex.Namespace
-            rsearch(c,cat(ns,[cindex.spelling(c)],dims=1),target_file,excludes)
-        elseif contains(cindex.cu_file(cur),target_file) && findfirst(e->cindex.spelling(c)==e,excludes)==nothing
+            rsearch(c, cat(ns, [cindex.spelling(c)], dims = 1), target_file, excludes)
+        elseif occursin(target_file, cindex.cu_file(cur)) && findfirst(e->cindex.spelling(c) == e, excludes) == nothing
             if typeof(c) == cindex.FunctionDecl
-                parseFunction(c,ns)
+                parseFunction(c, ns)
             elseif typeof(c) == cindex.ClassDecl || typeof(c) == cindex.StructDecl || typeof(c) == cindex.ClassTemplate
-                parseClass(c,ns)
+                parseClass(c, ns)
             elseif typeof(c) == cindex.EnumDecl 
-                parseEnum(c,ns)
+                parseEnum(c, ns)
             end
         end
     end
@@ -321,14 +321,14 @@ end
 function main()
     target_file = ARGS[1]
     excludes = ARGS[2:end]
-    mname=replace(target_file,"/"=>"_")
-    mname=replace(mname,".hpp"=>"")
-    mname=replace(mname,".h"=>"")
-    if length(target_file)>1 && target_file[1] != '/'
-        target_file = "/"*target_file
+    mname = replace(target_file, "/" => "_")
+    mname = replace(mname, ".hpp" => "")
+    mname = replace(mname, ".h" => "")
+    if length(target_file) > 1 && target_file[1] != '/'
+        target_file = "/" * target_file
     end
 
-    cur=cindex.parse_header("/usr/local/include/opencv2/opencv.hpp",args=["-D","CV_EXPORTS=__attribute__((annotate(\"CV_EXPORTS\")))"])
+    cur = cindex.parse_header("/usr/local/include/opencv2/opencv.hpp", args = ["-D","CV_EXPORTS=__attribute__((annotate(\"CV_EXPORTS\")))"])
     #cur=cindex.parse_header("/usr/local/include/opencv2/dnn/all_layers.hpp",args=["-D","CV_EXPORTS=__attribute__((annotate(\"CV_EXPORTS\")))"])
     #cur=cindex.parse_header("test.cpp")
     print("""
@@ -340,7 +340,7 @@ function main()
     JLCXX_MODULE
     define_$(mname)_module(Module& mod) {
     """)
-    rsearch(cur,[],target_file,excludes)
+    rsearch(cur, [], target_file, excludes)
     println("}")
 end
 
