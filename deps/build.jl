@@ -4,6 +4,7 @@ using CxxWrap
 
 @BinDeps.setup
 
+<<<<<<< HEAD
 
 opencv = library_dependency("opencv", aliases = ["libopencv_core"])
 
@@ -26,6 +27,8 @@ provides(BuildProcess, CMakeProcess(), opencv)
 
 @BinDeps.install
 
+=======
+>>>>>>> opencv3.4.x
 jlcxx_cmake_dir   = joinpath(dirname(pathof(CxxWrap)), "..", "deps",   "usr", "lib", "cmake", "JlCxx")
 cvwrap = library_dependency("cvwrap", aliases = ["libcvwrap"])
 
